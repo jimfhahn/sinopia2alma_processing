@@ -5,7 +5,7 @@ from rdflib import Graph
 from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import RDF
 from lxml import etree as ET
-from alma_ns import alma_namespaces
+from name_space.alma_ns import alma_namespaces
 
 app = flask.Flask(__name__)
 api = flask_restful.Api(app)
@@ -37,7 +37,7 @@ def rdf2instancexml():
     instance_alma_xml = instance_graph.serialize(format="pretty-xml", encoding="utf-8")
     tree = ET.fromstring(instance_alma_xml)
     # apply xslt to normalize instance
-    xslt = ET.parse("normalize-instance-sinopia2alma.xsl")
+    xslt = ET.parse("xsl/normalize-instance-sinopia2alma.xsl")
     transform = ET.XSLT(xslt)
     instance_alma_xml = transform(tree)
     instance_alma_xml = ET.tostring(
