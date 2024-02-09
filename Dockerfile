@@ -1,5 +1,4 @@
-# Use an official Python runtime as a parent image
-FROM python:3.10-slim-buster
+FROM python:3.10
 
 # Set the working directory in the container to /app
 WORKDIR /app
@@ -10,8 +9,11 @@ ADD . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install xsltproc
-RUN apt-get update && apt-get install -y xsltproc
+# Install Jupyter
+RUN pip install jupyter
+
+# Install xsltproc and additional XML/XSLT tools
+RUN apt-get update && apt-get install -y xsltproc libxml2-utils libxslt1.1 libxml2-dev libxslt-dev
 
 # Make port 8888 available to the world outside this container
 EXPOSE 8888
