@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
+  <marc:leader>     nam a22     uu 4500</marc:leader>
+  <marc:controlfield tag="001">idp140538472774831</marc:controlfield>
+  <marc:controlfield tag="003">DLC</marc:controlfield>
+  <marc:controlfield tag="008">231019|||||||||xx a          00| 0 chi  </marc:controlfield>
+  <marc:datafield tag="020" ind1=" " ind2=" ">
+    <marc:subfield code="a">9789881902580</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="020" ind1=" " ind2=" ">
+    <marc:subfield code="a">9881902584</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="035" ind1=" " ind2=" ">
+    <marc:subfield code="a">1127933250</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="040" ind1=" " ind2=" ">
+    <marc:subfield code="b">eng</marc:subfield>
+    <marc:subfield code="d">DLC</marc:subfield>
+    <marc:subfield code="e">rda</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="043" ind1=" " ind2=" ">
+    <marc:subfield code="0">http://id.loc.gov/authorities/names/n78089021</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="050" ind1=" " ind2="4">
+    <marc:subfield code="a">NK1071</marc:subfield>
+    <marc:subfield code="b">L58</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="245" xml:lang="cmn-Hant" ind1="0" ind2="0">
+    <marc:subfield code="a">藝流不息</marc:subfield>
+    <marc:subfield code="b">伊勢文化財團日本當代工藝</marc:subfield>
+    <marc:subfield code="c">編輯, 紀奕邦及林嘉琪</marc:subfield>
+    <marc:subfield code="c"/>
+  </marc:datafield>
+  <marc:datafield tag="246" xml:lang="eng" ind1="1" ind2="1">
+    <marc:subfield code="a">Living kogei</marc:subfield>
+    <marc:subfield code="b">contemporary Japanese craft from the Ise Collection</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="264" ind1=" " ind2="4">
+    <marc:subfield code="c">©2019</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="300" ind1=" " ind2=" ">
+    <marc:subfield code="a">99 pages</marc:subfield>
+    <marc:subfield code="c">28 cm</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="336" xml:lang="en" ind1=" " ind2=" ">
+    <marc:subfield code="a">text</marc:subfield>
+    <marc:subfield code="b">txt</marc:subfield>
+    <marc:subfield code="0">http://id.loc.gov/vocabulary/contentTypes/txt</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="337" xml:lang="en" ind1=" " ind2=" ">
+    <marc:subfield code="a">unmediated</marc:subfield>
+    <marc:subfield code="b">n</marc:subfield>
+    <marc:subfield code="0">http://id.loc.gov/vocabulary/mediaTypes/n</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="338" xml:lang="en" ind1=" " ind2=" ">
+    <marc:subfield code="a">volume</marc:subfield>
+    <marc:subfield code="b">nc</marc:subfield>
+    <marc:subfield code="0">http://id.loc.gov/vocabulary/carriers/nc</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="340" xml:lang="en" ind1=" " ind2=" ">
+    <marc:subfield code="g">color</marc:subfield>
+    <marc:subfield code="0">http://id.loc.gov/vocabulary/mcolor/mul</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="500" xml:lang="en" ind1=" " ind2=" ">
+    <marc:subfield code="a">Includes bibliographical references</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="522" xml:lang="en" ind1=" " ind2=" ">
+    <marc:subfield code="a">Japan</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="653" ind1=" " ind2=" ">
+    <marc:subfield code="a">Japón</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="653" ind1=" " ind2=" ">
+    <marc:subfield code="a">Artes decorativas</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="653" ind1=" " ind2=" ">
+    <marc:subfield code="a">Museos de arte</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="653" ind1=" " ind2=" ">
+    <marc:subfield code="a">Japan</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="653" ind1=" " ind2=" ">
+    <marc:subfield code="a">Art museums</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="653" ind1=" " ind2=" ">
+    <marc:subfield code="a">Decorative arts</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="655" xml:lang="en" ind1=" " ind2="4">
+    <marc:subfield code="a">Exhibition catalogs</marc:subfield>
+    <marc:subfield code="0">http://id.worldcat.org/fast/1424028</marc:subfield>
+  </marc:datafield>
+  <marc:datafield tag="884" ind1=" " ind2=" ">
+    <marc:subfield code="a">DLC bibframe2marc v1.1.0-SNAPSHOT</marc:subfield>
+    <marc:subfield code="g">20240209150047.0</marc:subfield>
+    <marc:subfield code="q">DLC</marc:subfield>
+    <marc:subfield code="u">https://github.com/lcnetdev/bibframe2marc</marc:subfield>
+  </marc:datafield>
+</marc:record>
