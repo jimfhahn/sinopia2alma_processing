@@ -1,0 +1,16 @@
+<rules xmlns="http://www.loc.gov/bf2marc">
+  <version>DLC bibframe2marc v2.5.0</version>
+  <file>rules/00-LDR.xml</file>
+  <file>rules/01-001-008.xml</file>
+  <file>rules/02-010-048.xml</file>
+  <file>rules/03-050-088.xml</file>
+  <file>rules/04-1XX.xml</file>
+  <file>rules/05-2XX.xml</file>
+  <file>rules/06-3XX.xml</file>
+  <file>rules/065-490.xml</file>
+  <file>rules/07-5XX.xml</file>
+  <file>rules/08-6XX.xml</file>
+  <file>rules/09-7XX.xml</file>
+  <file>rules/10-8XX.xml</file>
+  <file>rules/99-maps.xml</file>
+</rules>
