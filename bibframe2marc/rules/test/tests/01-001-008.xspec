@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+               xmlns:marc="http://www.loc.gov/MARC21/slim"
+               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+               xmlns:bf="http://id.loc.gov/ontologies/bibframe/"
+               stylesheet="../../../bibframe2marc.xsl"
+               xslt-version="1.0">
+
+  <!-- To run this test file separately, uncomment the line below -->
+  <!-- <x:param name="pRecordId">test001</x:param> -->
+
+  <x:scenario label="MARC 001">
+    <x:context href="../data/001-008/001.xml"/>
+    <x:expect label="...should be generated from the vRecordId global variable"
+              test="marc:record/marc:controlfield[@tag='001'] = 'test001'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 003 from adminMetadata">
+    <x:context href="../data/001-008/003.xml"/>
+    <x:expect label="...should be generated from $vAdminMetadata Local identifier assigner"
+              test="marc:record/marc:controlfield[@tag='003'] = 'OCoLC'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 003 from parameter">
+    <x:context href="../data/001-008/003-2.xml"/>
+    <x:expect label="...or pConversionAgency"
+              test="marc:record/marc:controlfield[@tag='003'] = 'DLC'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 005">
+    <x:scenario label="005 with datatype">
+      <x:context href="../data/001-008/005.xml"/>
+      <x:expect label="...should be converted from $vAdminMetadata/bf:changeDate"
+                test="marc:record/marc:controlfield[@tag='005'] = '20040915141353.0'"/>
+    </x:scenario>
+    <x:scenario label="005 without datatype">
+      <x:context href="../data/001-008/005-no-dt.xml"/>
+      <x:expect label="...should be converted from $vAdminMetadata/bf:changeDate if format is recognizable"
+                test="marc:record/marc:controlfield[@tag='005'] = '20040915141353.0'"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="MARC 007">
+    <x:scenario label="007 - Map - 1">
+      <x:context href="../data/001-008/007-map.xml"/>
+      <x:expect label="Map 007 generated when Work type is bf:Cartography and bf:Work/bf:genreForm has map URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'a'"/>
+      <x:expect label="007/01 from bf:Work/bf:genreForm URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'j'"/>
+      <x:expect label="007/02-07 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' |||||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Map - 2">
+      <x:context href="../data/exemplars/cartographic-three007s.rdf"/>
+      <x:expect label="Three 007s generated when Instance has expectant genreForm"
+        test="count(marc:record/marc:controlfield[@tag='007'])=3"/>
+      <x:expect label="... first 007s is ar"
+        test="substring(marc:record/marc:controlfield[@tag='007'][1],1,2) = 'ar'"/>
+      <x:expect label="... second 007s is ay"
+        test="substring(marc:record/marc:controlfield[@tag='007'][2],1,2) = 'ay'"/>
+      <x:expect label="... third 007s is aj"
+        test="substring(marc:record/marc:controlfield[@tag='007'][3],1,2) = 'aj'"/>
+    </x:scenario>
+    <x:scenario label="007 - Electronic resource">
+      <x:context href="../data/001-008/007-electronic.xml"/>
+      <x:expect label="Electronic resource 007 generated when Work type is bf:Multimedia and Instance media is http://id.loc.gov/vocabulary/mediaTypes/c"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'c'"/>
+      <x:expect label="007/01 from bf:Instance/bf:carrier URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'j'"/>
+      <x:expect label="007/02-13 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' |||||||||||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Globe">
+      <x:context href="../data/001-008/007-globe.xml"/>
+      <x:expect label="Globe 007 generated when Work type is bf:Cartography and Work content is 'crf' and Instance media is 'n' and Instance carrier is 'nr'"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'd'"/>
+      <x:expect label="007/01-05 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2) = '| |||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Projected graphic">
+      <x:context href="../data/001-008/007-proj-graphic.xml"/>
+      <x:expect label="Projected graphic 007 generated when Work type is bf:StillImage, bf:Instance/bf:media has projected graphic URI, and bf:Work/bf:genreForm does not have motion picture URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'g'"/>
+      <x:expect label="007/01 from bf:Instance/bf:carrier URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'o'"/>
+      <x:expect label="007/02-08 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' ||||||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Microform - 1">
+      <x:context href="../data/001-008/007-microform.xml"/>
+      <x:expect label="Microform 007 generated when Work type is bf:Text and bf:Instance/bf:media has microform URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'h'"/>
+      <x:expect label="007/01 from bf:Instance/bf:carrier URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'd'"/>
+      <x:expect label="007/02-12 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' ||||||||||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Microform - 2">
+      <x:context href="../data/exemplars/text-serial-microform-007s-relationships.rdf"/>
+      <x:expect label="Two 007s generated when bf:Instance/bf:media has microform URI and possible matching carrier."
+        test="count(marc:record/marc:controlfield[@tag='007'])=2"/>
+      <x:expect label="... first 007 is hd"
+        test="substring(marc:record/marc:controlfield[@tag='007'][1],1,2) = 'hd'"/>
+      <x:expect label="... second 007 is hd"
+        test="substring(marc:record/marc:controlfield[@tag='007'][2],1,2) = 'hd'"/>
+    </x:scenario>
+    <x:scenario label="007 - Nonprojected graphic - 1">
+      <x:context href="../data/001-008/007-nonproj-graphic.xml"/>
+      <x:expect label="Nonprojected graphic 007 generated when Work type is bf:StillImage and Instance/media is unmediated"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'k'"/>
+      <x:expect label="007/01 from bf:Work/bf:genreForm URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'j'"/>
+      <x:expect label="007/02-05 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' |||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Nonprojected graphic - 2">
+      <x:context href="../data/exemplars/stillimage-collection-pnp-008i.rdf"/>
+      <x:expect label="Nonprojected graphic - two 007s generated when Instance/media is unmediated and Instance has relevant genreForm."
+        test="count(marc:record/marc:controlfield[@tag='007'])=2"/>
+      <x:expect label="... first 007 is kh"
+        test="substring(marc:record/marc:controlfield[@tag='007'][1],1,2) = 'kh'"/>
+      <x:expect label="... second 007 is kd"
+        test="substring(marc:record/marc:controlfield[@tag='007'][2],1,2) = 'kd'"/>
+    </x:scenario>
+    <x:scenario label="007 - Motion picture - 1">
+      <x:context href="../data/001-008/007-motion-picture.xml"/>
+      <x:expect label="Motion picture 007 generated when Work type is bf:MovingImage and bf:Instance/bf:media has projected graphic URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'm'"/>
+      <x:expect label="007/01 from bf:Instance/bf:carrier URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'r'"/>
+      <x:expect label="007/02-22 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' ||||||||||||||||||||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Motion picture - 2">
+      <x:context href="../data/exemplars/movingimage-wizard-of-oz.rdf"/>
+      <x:expect label="Motion picture - eight 007s generated when Instance/media is moving image for 6 instances and video for 2."
+        test="count(marc:record/marc:controlfield[@tag='007'])=8"/>
+      <x:expect label="... first 007 is vd"
+        test="substring(marc:record/marc:controlfield[@tag='007'][1],1,2) = 'vd'"/>
+      <x:expect label="... second 007 is mr"
+        test="substring(marc:record/marc:controlfield[@tag='007'][4],1,2) = 'mr'"/>
+    </x:scenario>
+    <x:scenario label="007 - Sound recording - 1">
+      <x:context href="../data/001-008/007-sound.xml"/>
+      <x:expect label="Sound recording 007 generated when Work type is bf:MusicAudio, bf:Instance/bf:media has sound recording URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 's'"/>
+      <x:expect label="007/01 from bf:Instance/bf:carrier URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'd'"/>
+      <x:expect label="007/02-13 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' |||||||||||'"/>
+    </x:scenario>
+    <x:scenario label="007 - Sound recording - 2">
+      <x:context href="../data/exemplars/musicaudio-monograph-hamilton-contributos-subjects-genreforms.rdf"/>
+      <x:expect label="Sound recording - two 007s generated when Instance/media is sound and from electronic instance."
+        test="count(marc:record/marc:controlfield[@tag='007'])=2"/>
+      <x:expect label="... first 007 is sd"
+        test="substring(marc:record/marc:controlfield[@tag='007'][1],1,2) = 'sd'"/>
+      <x:expect label="... second 007 is cr"
+        test="substring(marc:record/marc:controlfield[@tag='007'][2],1,2) = 'cr'"/>
+    </x:scenario>
+    <x:scenario label="007 - Sound recording - 3">
+      <x:context href="../data/exemplars/nonmusicaudio-one300tomultiple-two007s.rdf"/>
+      <x:expect label="Sound recording - three 007s generated when Instance/media is sound, one from video, and one text."
+        test="count(marc:record/marc:controlfield[@tag='007'])=3"/>
+      <x:expect label="... first 007 is sd"
+        test="substring(marc:record/marc:controlfield[@tag='007'][1],1,2) = 'sd'"/>
+      <x:expect label="... second 007 is vd"
+        test="substring(marc:record/marc:controlfield[@tag='007'][2],1,2) = 'vd'"/>
+      <x:expect label="... third 007 is t|"
+        test="substring(marc:record/marc:controlfield[@tag='007'][3],1,2) = 't|'"/>
+    </x:scenario>
+    <x:scenario label="007 - Video recording">
+      <x:context href="../data/001-008/007-video.xml"/>
+      <x:expect label="Video recording 007 generated when Work type is bf:MovingImage and bf:Instance/bf:media has video recording URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],1,1) = 'v'"/>
+      <x:expect label="007/01 from bf:Instance/bf:carrier URI"
+                test="substring(marc:record/marc:controlfield[@tag='007'],2,1) = 'f'"/>
+      <x:expect label="007/02-08 default"
+                test="substring(marc:record/marc:controlfield[@tag='007'],3) = ' ||||||'"/>
+    </x:scenario>
+  </x:scenario>
+
+  <x:scenario label="MARC 008 - all materials">
+    <x:context href="../data/001-008/008-all.xml"/>
+    <x:expect label="008/00-05 generated from $vAdminMetadata/bf:creationDate"
+              test="substring(marc:record/marc:controlfield[@tag='008'],1,6) = '040520'"/>
+    <x:expect label="008/06-14 generated from date in bf:Instance/bf:provisionActivity/bf:ProvisionActivity"
+              test="substring(marc:record/marc:controlfield[@tag='008'],7,9) = 's2001||||'"/>
+    <x:expect label="008/15-17 generated from bf:Instance/bf:provisionActivity/bf:ProvisionActivity/bf:place"
+              test="substring(marc:record/marc:controlfield[@tag='008'],16,3) = 'dk '"/>
+    <x:expect label="008/32 not coded"
+              test="substring(marc:record/marc:controlfield[@tag='008'],33,1) = ' '"/>
+    <x:expect label="008/35-37 generated from bf:Work/bf:language"
+              test="substring(marc:record/marc:controlfield[@tag='008'],36,3)='dan'"/>
+    <x:expect label="008/38-39 not coded"
+              test="substring(marc:record/marc:controlfield[@tag='008'],39,2)='  '"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 008 - BK">
+    <x:context href="../data/001-008/008-BK.xml"/>
+    <x:expect label="BK 008/18-21 generated from bf:Instance/bf:illustrativeContent"
+              test="substring(marc:record/marc:controlfield[@tag='008'],19,4) = 'a   '"/>
+    <x:expect label="BK 008/22 generated from bf:Work/bf:intendedAudience"
+              test="substring(marc:record/marc:controlfield[@tag='008'],23,1) = 'j'"/>
+    <x:expect label="BK 008/23 generated from bf:Instance/bf:carrier"
+              test="substring(marc:record/marc:controlfield[@tag='008'],24,1) = 's'"/>
+    <!--<x:expect label="BK 008/24-27 generated from bf:Work/bf:genreForm or bf:Work/bf:supplementaryContent"
+              test="substring(marc:record/marc:controlfield[@tag='008'],25,4) = 'bh  '"/>-->
+    <x:expect label="BK 008/28 generated from bflc:governmentPubType with gov doc URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],29,1) = 'f'"/>
+    <x:expect label="BK 008/29 generated from bf:Work/bf:genreForm with conference URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],30,1) = '1'"/>
+    <x:expect label="BK 008/30 generated from bf:Work/bf:genreForm with Festschrift URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],31,1) = '1'"/>
+    <x:expect label="BK 008/31 generated from bf:Instance/bf:supplementaryContent with index label"
+              test="substring(marc:record/marc:controlfield[@tag='008'],32,1) = '1'"/>
+    <x:expect label="BK 008/33 generated from bf:Work/bf:genreForm with literary form URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],34,1) = '1'"/>
+    <x:expect label="BK 008/34 generated from bf:Work/bf:genreForm with biography URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],35,1) = 'd'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 008 - CF">
+    <x:context href="../data/001-008/008-CF.xml"/>
+    <x:expect label="CR 008/23 generated from bf:Instance/bf:carrier URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],24,1) = 'q'"/>
+    <x:expect label="CR 008/26 generated from bf:Work/bf:genreForm URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],27,1) = 'a'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 008 - MP">
+    <x:context href="../data/001-008/008-MP.xml"/>
+    <x:expect label="MP 008/18-21 generated from bf:Work/bf:cartographicAttributes/bf:Cartographic/bflc:relief URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],19,4) = 'b   '"/>
+    <x:expect label="MP 008/22-23 generated from bf:Work/bf:cartographicAttributes/bf:Cartographic/bf:projection URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],23,2) = 'ca'"/>
+    <x:expect label="MP 008/29 generated from bf:Instance/bf:carrier, bf:Instance/bf:fontSize, or bf:Instance/bf:notation"
+              test="substring(marc:record/marc:controlfield[@tag='008'],30,1) = 'b'"/>
+    <x:expect label="MP 008/33-34 generated from bf:Work/bf:genreForm URIs"
+              test="substring(marc:record/marc:controlfield[@tag='008'],34,2) = 'l '"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 008 - MU">
+    <x:context href="../data/001-008/008-MU.xml"/>
+    <x:expect label="MU 008/18-19 generated from bf:Work/bf:genreForm URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],19,2) = 'mc'"/>
+    <x:expect label="MU 008/20 generated from bf:Work/bf:musicFormat URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],21,1) = 'c'"/>
+    <x:expect label="MU 008/24-29 generated from bf:Work/bf:supplementaryContent URIs"
+              test="substring(marc:record/marc:controlfield[@tag='008'],25,6) = 'd     '"/>
+    <x:expect label="MU 008/30-31 generated from bf:Work/bf:genreForm URIs"
+              test="substring(marc:record/marc:controlfield[@tag='008'],31,2) = 'h '"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 008 - CR">
+    <x:context href="../data/001-008/008-CR.xml"/>
+    <x:expect label="CR 008/18 generated from bf:Instance/bf:frequency URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],19,1) = 'm'"/>
+    <x:expect label="CR 008/19 generated from frequency/irregularity combo"
+              test="substring(marc:record/marc:controlfield[@tag='008'],20,1) = 'r'"/>
+    <x:expect label="CR 008/21 generated from bf:Instance/bflc:serialPubType URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],22,1) = 'p'"/>
+    <!--<x:expect label="CR 008/22 generated from bf:Instance/bf:note URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],23,1) = 'o'"/>-->
+    <x:expect label="CR 008/22 is ' '"
+              test="substring(marc:record/marc:controlfield[@tag='008'],23,1) = ' '"/>
+    <x:expect label="CR 008/23 generated from bf:Instance/bf:carrier URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],24,1) = 'd'"/>
+    <x:expect label="CR 008/24-27 generated from bf:Work/bf:genreForm or bf:Work/bf:supplementaryContent URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],25,4) = ' k  '"/>
+    <x:expect label="CR 008/30-32 should be blank"
+              test="substring(marc:record/marc:controlfield[@tag='008'],31,3) = '   '"/>
+    <x:expect label="CR 008/33 generated from bf:Work/bf:notation URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],34,1) = 'a'"/>
+    <x:expect label="CR 008/34 generated from AdminMetadata entry convention note"
+              test="substring(marc:record/marc:controlfield[@tag='008'],35,1) = '0'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 008 - VM">
+    <x:context href="../data/001-008/008-VM.xml"/>
+    <x:expect label="VM 008/18-21 generated from bf:Work/bf:duration"
+              test="substring(marc:record/marc:controlfield[@tag='008'],19,3) = '119'"/>
+    <x:expect label="VM 008/33 generated from bf:Work/bf:genreForm URI"
+              test="substring(marc:record/marc:controlfield[@tag='008'],34,1) = 'm'"/>
+  </x:scenario>
+
+</x:description>

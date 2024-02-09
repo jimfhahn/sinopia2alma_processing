@@ -1,0 +1,20 @@
+<?xml version='1.0'?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/" xmlns:bflc="http://id.loc.gov/ontologies/bflc/" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+  <bf:Work rdf:about="http://example.org/830test#Work">
+    <bf:hasSeries>
+      <bf:Hub rdf:about="http://bibframe.example.org/4638945#Work830-20">
+        <bf:title>
+          <bf:Title>
+            <bflc:title30MatchKey>Actualités-Service. No 293 (Supplement)</bflc:title30MatchKey>
+            <bflc:title30MarcKey>7300 $aActualités-Service.$nNo 293 (Supplement)</bflc:title30MarcKey>
+            <bflc:titleSortKey>Actualités-Service. No 293 (Supplement)</bflc:titleSortKey>
+            <bf:mainTitle>Le Actualités-Service. No 293 (Supplement)</bf:mainTitle>
+            <bf:partNumber>No 293 (Supplement)</bf:partNumber>
+          </bf:Title>
+        </bf:title>
+      </bf:Hub>
+    </bf:hasSeries>
+    <bf:hasInstance rdf:resource="http://example.org/830test#Instance"/>
+  </bf:Work>
+  <bf:Instance rdf:about="http://example.org/830test#Instance"/>
+</rdf:RDF>

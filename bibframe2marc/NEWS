@@ -1,0 +1,156 @@
+--- 2.5.0 2024/01/19
+
+Changes for updated v2.5.0 specifications:
+	
+008-bf2marc
+    Add support for bf:relief/Relief (not just bflc:relief)
+Work-bf2marc
+    Add support for bf:PrimaryContribution (not just bflc:PrimaryContribution)
+    Change creation of 653, 648, 651, 655 fields to match marc2bibframe
+    Add creation of 023, 647 fields to match marc2bibframe
+    Change creation of URL fields (mostly in $u) to match marc2bibframe
+    Added support for dynamic FAST and DNB look ups
+Instance-bf2marc
+    Add support for bf:CaptureStorage (not just bflc:CaptureStorage)
+    Change insertion of copyright and phonogram symbols in 264 fields
+    Add creation of 264 Ind1 for serials and integrating resources
+
+--- 2.4.0 2023/11/22
+
+Changes for updated v2.4.0 specifications:
+	
+Instance-bf2marc:
+    Creation of 007 field added; refined rules for 007 creation based on Instance characteristics.
+Work-bf2marc:
+    Creation of 007 field removed
+
+--- 2.3.0 2022/01/18
+
+This release reflects specification changes related to marc2bibframe v2.3.0 and many bug fixes.
+
+Changes include:
+
+* Remove copyright symbol from EDTF date so it can be used in 008.
+* If metaentry note missing, output pipe in 008.
+* Handle marc382 variation and make backwards compatible.
+* Handle additonal patterns for source info and set 6XX indicator values correctly.
+* Fix bug in XPath resulting in multiple, duplicate 7XXs.
+* Only look for title properties on Work or Instance and ensure they have a bf:mainTitle.
+* If Instance title exists, use that for 245, else Work title.
+* Do not create empty 264 when bf:copyrightDate property has no value.
+* Only output 310/321 if Frequency has data value.
+* Fix bug with 630 non-filing characters.
+* Fix bug where 7XX $i should be $4; set default relationship to 758 when indeterminable.
+* Only output 5XX fields when there is content.
+* Make sure related 8XX resource has a title before generaring field.
+* Use spaces, not pipes, for remainder of 008 dates.
+* Format LCCN properly.
+* Force relators terms to lowercase.
+* Use "[not] used by agency" statuses for 050, 055, 060, 070 to set indicator value properly.
+* Accommodate use of main note pattern for Awards.
+* Output 051 based on new classification pattern.
+* Handle 561, 563, and 583 at Item or Instance level.
+
+--- 2.2.1 2022/12/08
+
+This is a patch release to address a variety of bugs.
+
+Changes include:
+
+* Fix duplicating 7XXs.
+* Set correct indicator values for 240, 730, and 830.
+* Better handling of legacy 440.
+
+--- 2.2.0 2022/12/02
+
+This release reflects specification changes related to marc2bibframe v2.2.0.
+
+Changes include:
+
+* Support for bflc:marcKey property.
+* Support for ID.LOC.GOV lookup support using Saxonica or MarkLogic XSLT processors.
+* Partial support for Names, Subjects, and GenreForm lookups with xsltprocessor.
+* Bug fix for 386 subfields.
+* Support for bflc:nonSortNum property.
+* Fix bug with Work-level typing and 007 output.
+
+--- 2.1.0 2022/10/18
+
+This release reflects specification changes related to marc2bibframe v2.1.0.
+
+Changes include:
+
+* Do not convert descriptionConvention values 'aacr' or 'isbd.'
+* Add support for converting bf:binding to 340$l.
+* Make 040 subfield order:  $abecd 
+* Force 'dlc' to 'DLC' for 040.
+* Accommodate new source/Source pattern for LCGFT to ensure proper 655 ind2 subfield code.
+* Add support for outputting 348.
+* Ensure BF language notes go to 546.
+* Update BF Series processing for appropriate 490 or Series 8XX fields.
+* Correct bug with 340 subfielding.
+* Output 242$y.
+
+--- 2.0.0 2022/08/23
+
+This release reflects specification changes related to marc2bibframe v2.0.0.
+
+Changes include:
+
+* Use new Work types to set Leader/06 and Leader/07 bytes.
+* Use new 334 field for Issuance.
+* Create 490 and 8XX fields from Hubs.
+* Create 264 fields from bflc:simplePlace, bflc:simpleAgent and bflc:simplePlace literals.
+* Create 720 fields when bf:agent has type Uncontrolled.
+* Address issues a number of issues with too few 008 values (resulting in too-short 008s), incorrect 008 dates, and empty fields.
+* Output 340 $l.
+* Simplify 334 context processing.
+* More flexible xpath selection to accommodate various RDF/XML shapes. 
+
+--- 1.1.1 2022/08/03
+
+This is a patch release to address a variety of bugs.
+
+Changes include:
+
+* Not emitting MARC fields/subfields if content/information missing as seen with classification, ISBNs, ISSNS, and missing/expected rdf:value literals.
+* Place RWO URIs in $1, not $0.
+* Numerous fixes to 008, including correcting values (pos 34 for books) and spacing issues.
+* Amend support for expressionOf/Hub construct.
+* More flexible xpath selection to accommodate various RDF/XML shapes. 
+
+--- 1.1.0 2022/06/24
+
+This release reflects specification changes related to marc2bibframe v1.7.1.
+
+Changes include:
+
+* Retaining punctuation in various fields (210, 222, 264, 245, etc.)
+* Use new 344 for CaptureStorage and not 500.
+* Add copyright symbol if Print, Arhival, Manuscript, Tactile, or Electronic.
+* Test if Capture place relates to a G Class entry, use 033, else use 518.
+* Bug fix with DLC repeating in 040.
+* Numerous generation updates for 2XX, 3XX, 6XX, 7XX, etc. fields.
+
+--- 1.1.0-M2BF-1.6 2022/04/05
+
+Interim release reflecting specification changes related to marc2bibframe v1.6.x
+
+Many changes and fixes, including:
+
+* Fix recursion bug in tChopPunct template related to un-matched enclosing punctuation.
+* Update 007 conversion. Add extended fill characters.
+* Updated conversion based on updated specifications for many control and data fields.
+* New named templates available for use in rules, including:
+    * tUriCode
+    * tToken2Subfields
+    * tGetMARCAuth
+* New feature to allow for pulling in MARC authority records from the Library of Congress
+  or other sources, and using that data to augment data fields generated from
+  BIBFRAME entities.
+
+See the README.md file and doc/rules.md for more details.
+
+--- 1.0.0 2020/04/30
+
+First packaged release.

@@ -1,0 +1,248 @@
+<?xml version='1.0'?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/" xmlns:bflc="http://id.loc.gov/ontologies/bflc/" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+  <bf:Work rdf:about="http://example.org/050-088test#Work">
+    <bf:classification>
+      <bf:ClassificationLcc>
+        <bf:classificationPortion>BM705</bf:classificationPortion>
+        <bf:itemPortion>A, Nr. 615</bf:itemPortion>
+        <bf:assigner>
+          <bf:Agent rdf:about="http://id.loc.gov/organizations/dlc">
+            <bf:code>DLC</bf:code>
+          </bf:Agent>
+        </bf:assigner>
+      </bf:ClassificationLcc>
+    </bf:classification>
+    <bf:geographicCoverage rdf:resource="http://id.loc.gov/authorities/classification/G4034.R4"/>
+    <bf:geographicCoverage rdf:resource="http://id.loc.gov/authorities/classification/G4034.R8"/>
+    <bf:classification>
+      <bf:ClassificationLcc>
+        <bf:classificationPortion>F5050 .2</bf:classificationPortion>
+        <bf:itemPortion>T5</bf:itemPortion>
+        <bf:assigner>
+          <bf:Agent rdf:about="http://id.loc.gov/authorities/names/no2004037399">
+            <rdfs:label>Library and Archives Canada</rdfs:label>
+          </bf:Agent>
+        </bf:assigner>
+      </bf:ClassificationLcc>
+    </bf:classification>
+    <bf:classification>
+      <bf:ClassificationNlm rdf:about="http://nlm.nih.gov/callnumbers/Z675_M4">
+        <bf:classificationPortion>Z 675.M4</bf:classificationPortion>
+        <bf:itemPortion>N532f</bf:itemPortion>
+        <bf:assigner>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dnlm">
+            <rdfs:label>National Library of Medicine</rdfs:label>
+          </bf:Agent>
+        </bf:assigner>
+        <bf:identifiedBy>
+          <bf:Identifier>
+            <rdf:value>Z675.M4</rdf:value>
+            <bf:source>
+              <bf:Source>
+                <bf:code>NLM</bf:code>
+              </bf:Source>
+            </bf:source>
+          </bf:Identifier>
+        </bf:identifiedBy>
+      </bf:ClassificationNlm>
+    </bf:classification>
+    <bf:classification>
+      <bf:Classification>
+        <bf:classificationPortion>281.9</bf:classificationPortion>
+        <bf:itemPortion>C81A</bf:itemPortion>
+        <bf:assigner>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dnal"/>
+        </bf:assigner>
+      </bf:Classification>
+    </bf:classification>
+    <bf:subject>
+      <bf:Topic>
+        <bf:code>S100</bf:code>
+        <bf:source>
+          <bf:Source rdf:about="http://id.loc.gov/vocabulary/classSchemes/agricola"/>
+        </bf:source>
+      </bf:Topic>
+    </bf:subject>
+    <bf:subject>
+      <bf:Topic>
+        <bf:code>Z1 .630</bf:code>
+        <bf:source>
+          <bf:Source>
+            <bf:code>mesh</bf:code>
+          </bf:Source>
+        </bf:source>
+      </bf:Topic>
+    </bf:subject>
+    <bf:classification>
+      <bf:ClassificationDdc>
+        <bf:classificationPortion>621.389/2</bf:classificationPortion>
+        <bf:edition>full</bf:edition>
+        <bf:source>
+          <bf:Source>
+            <bf:code>23</bf:code>
+          </bf:Source>
+        </bf:source>
+      </bf:ClassificationDdc>
+    </bf:classification>
+    <!-- This is an old pattern that needs to be accommodated. -->
+    <bf:classification>
+      <bf:ClassificationDdc>
+        <bf:classificationPortion>621.389/2</bf:classificationPortion>
+        <bf:edition>full</bf:edition>
+        <bf:source>
+          <rdfs:Resource>
+            <rdfs:label>23</rdfs:label>
+          </rdfs:Resource>
+        </bf:source>
+      </bf:ClassificationDdc>
+    </bf:classification>
+    <bf:classification>
+      <bf:ClassificationDdc>
+        <bf:classificationPortion>973.932092</bf:classificationPortion>
+        <bf:classificationPortion>B</bf:classificationPortion>
+        <bf:source>
+          <bf:Source>
+            <bf:code>23</bf:code>
+          </bf:Source>
+        </bf:source>
+        <bf:edition>full</bf:edition>
+        <bf:assigner>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dlc"/>
+        </bf:assigner>
+      </bf:ClassificationDdc>
+    </bf:classification>
+    <bf:classification>
+      <bf:Classification rdf:about="http://example.org/KB112.554">
+        <bf:classificationPortion>KB112.554</bf:classificationPortion>
+        <bf:itemPortion>U62 1980</bf:itemPortion>
+        <bf:assigner>
+          <bf:Agent>
+            <rdfs:label>DE-101</rdfs:label>
+          </bf:Agent>
+        </bf:assigner>
+        <bf:identifiedBy>
+          <bf:Identifier>
+            <rdf:value rdf:resource="http://example.com/KB112.554"/>
+          </bf:Identifier>
+        </bf:identifiedBy>
+        <bf:source>
+          <bf:Source>
+            <bf:code>sdnb</bf:code>
+          </bf:Source>
+        </bf:source>
+      </bf:Classification>
+    </bf:classification>
+    <bf:hasInstance rdf:resource="http://example.org/050-088test#Instance"/>
+  </bf:Work>
+  <bf:Instance rdf:about="http://example.org/050-088test#Instance">
+    <bf:identifiedBy>
+      <bf:Identifier>
+        <rdf:value>334-C-1</rdf:value>
+        <bf:assigner>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dgpo"/>
+        </bf:assigner>
+      </bf:Identifier>
+    </bf:identifiedBy>
+    <bf:identifiedBy>
+      <bf:Identifier>
+        <rdf:value>334-C-11</rdf:value>
+        <bf:assigner>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dgpo"/>
+        </bf:assigner>
+        <bf:status>
+          <bf:Status rdf:about="http://id.loc.gov/vocabulary/mstatus/cancinv">
+            <rdfs:label>invalid</rdfs:label>
+          </bf:Status>
+        </bf:status>
+      </bf:Identifier>
+    </bf:identifiedBy>
+    <bf:classification>
+      <bf:Classification>
+        <rdfs:label>A 13.28:F 61/2/981 Glacier</rdfs:label>
+        <bf:source>
+          <bf:Source rdf:about="http://id.loc.gov/vocabulary/classSchemes/sudocs"/>
+        </bf:source>
+      </bf:Classification>
+    </bf:classification>
+    <bf:identifiedBy>
+      <bf:ReportNumber>
+        <rdf:value>APA 3009</rdf:value>
+      </bf:ReportNumber>
+    </bf:identifiedBy>
+    <bf:hasItem>
+      <bf:Item>
+        <bf:shelfMark>
+          <bf:ShelfMarkLcc>
+            <rdfs:label>BM705 A, Nr. 615</rdfs:label>
+            <bf:assigner>
+              <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dlc"/>
+            </bf:assigner>
+          </bf:ShelfMarkLcc>
+        </bf:shelfMark>
+        <bf:heldBy>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dlc">
+            <rdfs:label>United States, Library of Congress</rdfs:label>
+            <bf:code>DLC</bf:code>
+          </bf:Agent>
+        </bf:heldBy>
+      </bf:Item>
+    </bf:hasItem>
+    <bf:hasItem>
+      <bf:Item>
+        <bf:shelfMark>
+          <bf:ShelfMarkLcc>
+            <rdfs:label>Microfilm 3741 HV</rdfs:label>
+            <bf:note>
+              <bf:Note>
+                <rdfs:label>Microfilm</rdfs:label>
+              </bf:Note>
+            </bf:note>
+          </bf:ShelfMarkLcc>
+        </bf:shelfMark>
+        <bf:heldBy>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dlc">
+            <rdfs:label>United States, Library of Congress</rdfs:label>
+            <bf:code>DLC</bf:code>
+          </bf:Agent>
+        </bf:heldBy>
+      </bf:Item>
+    </bf:hasItem>
+    <bf:hasItem>
+      <bf:Item>
+        <bf:heldBy>
+          <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dlc">
+            <bf:code>DLC</bf:code>
+          </bf:Agent>
+        </bf:heldBy>
+        <bf:shelfMark>
+          <bf:ShelfMark>
+            <rdfs:label>MLCS 2021/32286 (P)</rdfs:label>
+            <bf:assigner>
+              <bf:Agent rdf:about="http://id.loc.gov/vocabulary/organizations/dlc"/>
+            </bf:assigner>
+          </bf:ShelfMark>
+        </bf:shelfMark>
+      </bf:Item>
+    </bf:hasItem>
+    <bf:hasItem>
+      <bf:Item>
+        <bf:classification>
+          <bf:ClassificationLcc>
+            <bf:classificationPortion>CPortion</bf:classificationPortion>
+            <bf:itemPortion>Iportion</bf:itemPortion>
+            <bf:assigner>
+              <bf:Agent rdf:about="http://id.loc.gov/organizations/dlc">
+                <bf:code>DLC</bf:code>
+              </bf:Agent>
+            </bf:assigner>
+            <bf:note>
+              <bf:Note>
+                <rdfs:label>CNote</rdfs:label>
+              </bf:Note>
+            </bf:note>
+          </bf:ClassificationLcc>
+        </bf:classification>
+      </bf:Item>
+    </bf:hasItem>
+  </bf:Instance>
+</rdf:RDF>

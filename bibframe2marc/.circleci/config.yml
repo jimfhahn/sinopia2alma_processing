@@ -1,0 +1,47 @@
+version: 2.1
+workflows:
+  bibframe2marc-xspec-tests:
+    jobs:
+      - build:
+          context:
+            - xspec-env-vars
+            - docker-hub-creds
+jobs:
+  build:
+    docker:
+      - image: cimg/base:current
+        auth:
+          username: $DH_USERNAME
+          password: $DH_PASSWORD
+    steps:
+      - run:
+          name: Checkout
+          command: |
+            echo 'Cloning bibframe2marc'
+            git clone --no-checkout https://github.com/lcnetdev/bibframe2marc.git .
+            if [ -n "$CIRCLE_TAG" ]; then
+              echo "Checking out tag $CIRCLE_TAG"
+              git checkout --force "$CIRCLE_TAG"
+              git reset --hard "$CIRCLE_SHA1"
+            else
+              echo "Checking out $CIRCLE_BRANCH branch"
+              git checkout --force -B "$CIRCLE_BRANCH" "$CIRCLE_SHA1"
+              git --no-pager log --no-color -n 1 --format='HEAD is now at %h %s'
+            fi
+      - run:
+          name: Install testing prerequisites
+          command: |
+            sudo apt-get update && sudo apt-get install -y openjdk-11-jre-headless libsaxonhe-java xsltproc
+            git clone https://github.com/xspec/xspec.git /tmp/xspec
+      - run:
+          name: Run tests
+          command: "make test XSPEC=$XSPEC"
+      - store_artifacts:
+          path: test/xspec/compile-result.html
+          destination: xspec-tests/compile-result.html
+      - store_artifacts:
+          path: test/xspec/named-templates-result.html
+          destination: xspec-tests/named-templates-result.html
+      - store_artifacts:
+          path: rules/test/xspec/rules-result.html
+          destination: xspec-tests/rules-result.html

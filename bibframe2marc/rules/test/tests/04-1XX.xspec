@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<x:description xmlns:x="http://www.jenitennison.com/xslt/xspec"
+               xmlns:marc="http://www.loc.gov/MARC21/slim"
+               stylesheet="../../../bibframe2marc.xsl"
+               xslt-version="1.0">
+
+  <x:scenario label="MARC 100">
+    <x:context href="../data/1XX/100-01.xml"/>
+    <x:expect label="generate 100" test="count(//marc:datafield[@tag='100']) = 1"/>
+    <x:expect label="$e from role"
+              test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='e'] = 'author'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 100 - 02">
+    <x:context href="../data/1XX/100-02.xml"/>
+    <x:expect label="generate 100" test="count(//marc:datafield[@tag='100']) = 1"/>
+    <x:expect label="$1 from URI"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='1'] = 'http://id.loc.gov/rwo/agents/n79135565'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 100 - 03">
+    <x:context href="../data/exemplars/raw.notatedmusic-monograph-genreforms.rdf"/>
+    <x:expect label="generate 100 from marcKey" test="count(//marc:datafield[@tag='100']) = 1"/>
+    <x:expect label="$d exists from marcKey and matches"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='d'] = '1811-1886,'"/>
+    <x:expect label="$e exists from marcKey and matches"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='e'] = 'composer'"/>
+  </x:scenario>
+  
+  <x:scenario label="MARC 100 - 03.2">
+    <x:context href="../data/exemplars/notatedmusic-monograph-genreforms.rdf"/>
+    <x:expect label="generate 100 from marcKey" test="count(//marc:datafield[@tag='100']) = 1"/>
+    <x:expect label="$d exists from marcKey and matches"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='d'] = '1811-1886'"/>
+    <x:expect label="$e exists from marcKey and matches"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='e'] = 'composer'"/>
+  </x:scenario>
+  
+  <x:scenario label="MARC 100 - 04">
+    <x:context href="../data/exemplars/id.notatedmusic-monograph-genreforms.rdf"/>
+    <x:expect label="generate 100 from marcKey" test="count(//marc:datafield[@tag='100']) = 1"/>
+    <x:expect label="$d exists from marcKey and matches"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='d'] = '1811-1886'"/>
+    <x:expect label="$e exists from marcKey and matches relator code"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='e'] = 'composer'"/>
+    <x:expect label="$1 exists from marcKey and matches"
+      test="//marc:datafield[@tag='100'][1]/marc:subfield[@code='1'] = 'http://id.loc.gov/rwo/agents/n79079048'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 110">
+    <x:context href="../data/1XX/110.xml"/>
+    <x:expect label="generate 110"
+              test="count(//marc:datafield[@tag='110']) = 1"/>
+    <x:expect label="ind1 from class of agent"
+              test="//marc:datafield[@tag='110'][1]/@ind1 = '2'"/>
+    <x:expect label="ind2 default to blank"
+              test="//marc:datafield[@tag='110'][1]/@ind2 = ' '"/>
+    <x:expect label="$a from label"
+              test="//marc:datafield[@tag='110'][1]/marc:subfield[@code='a'] = 'Unitarian Universalist Ministers Association'"/>
+    <x:expect label="$0 from URI of agent"
+              test="//marc:datafield[@tag='110'][1]/marc:subfield[@code='0'] = 'http://example.com/authorities/names/n85033195'"/>
+    <x:expect label="$2 from source"
+              test="//marc:datafield[@tag='110'][1]/marc:subfield[@code='2'] = 'naf'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 111">
+    <x:context href="../data/1XX/111.xml"/>
+    <x:expect label="generate 110"
+              test="count(//marc:datafield[@tag='111']) = 1"/>
+    <x:expect label="ind1 default to '2'"
+              test="//marc:datafield[@tag='111'][1]/@ind1 = '2'"/>
+    <x:expect label="ind2 default to blank"
+              test="//marc:datafield[@tag='111'][1]/@ind2 = ' '"/>
+    <x:expect label="$a from first element in elementList or label"
+              test="//marc:datafield[@tag='111'][1]/marc:subfield[@code='a'] = 'Codex Book Fair and Symposium.'"/>
+    <x:expect label="$c from GeographicElement"
+              test="//marc:datafield[@tag='111'][1]/marc:subfield[@code='c'] = 'Minneapolis, MN'"/>
+    <x:expect label="$0 from URI of agent"
+              test="//marc:datafield[@tag='111'][1]/marc:subfield[@code='0'] = 'http://example.com/authorities/names/no2009024971'"/>
+  </x:scenario>
+
+  <x:scenario label="Main entry from name authority">
+    <x:context href="../data/1XX/100-auth.xml"/>
+    <x:expect label="generate main entry"
+              test="count(//marc:datafield[@tag='100']) = 1"/>
+    <x:expect label="ind1 from authority"
+              test="//marc:datafield[@tag='100']/@ind1 = '1'"/>
+    <x:expect label="$a from authority"
+              test="//marc:datafield[@tag='100']/marc:subfield[@code='a'] = 'Andersen, H. C.'"/>
+    <x:expect label="$q from authority (with punctuation)"
+              test="//marc:datafield[@tag='100']/marc:subfield[@code='q'] = '(Hans Christian),'"/>
+    <x:expect label="$d from authority"
+              test="//marc:datafield[@tag='100']/marc:subfield[@code='d'] = '1805-1875'"/>
+    <x:expect label="Subfield order from authority"
+              test="//marc:datafield[@tag='100']/marc:subfield[1]/@code='a' and
+                    //marc:datafield[@tag='100']/marc:subfield[2]/@code='q' and
+                    //marc:datafield[@tag='100']/marc:subfield[3]/@code='d'"/>
+    <x:expect label="$0 from URI"
+              test="//marc:datafield[@tag='100']/marc:subfield[@code='0'] = 'http://id.loc.gov/authorities/names/n79022941'"/>
+    <x:expect label="Process other properties even with authority record"
+              test="//marc:datafield[@tag='100']/marc:subfield[@code='e'] = 'composer'"/>
+  </x:scenario>
+
+  <x:scenario label="MARC 130">
+    <x:context href="../data/1XX/130.xml"/>
+    <x:expect label="generate 130 from Work/expressionOf/Hub when Hub has no bflc:primaryContribution"
+              test="count(//marc:datafield[@tag='130']) = 1"/>
+    <x:expect label="ind1 generated when bflc:titleSortKey is shorter than bf:mainTitle" test="//marc:datafield[@tag='130']/@ind1 = '4'"/>
+    <x:expect label="$a generated from mainTitle"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='a'] = 'The Encyclopedia of Latin American history and culture. (1952). [between 1775 and 1800]. Manuscripts, Latin. violin, viola, D major. arr. O.T. Book 4. Selections'"/>
+    <!-- 
+    <x:expect label="$d from legalDate"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='d'] = '1952'"/>
+    <x:expect label="$f from originDate"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='f'] = '[between 1775 and 1800]'"/>
+    <x:expect label="$m from musicMedium"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='m'] = 'violin, viola'"/>
+    <x:expect label="$n from title/Title/partNumber"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='n'] = 'Book 4'"/>
+    <x:expect label="$p from title/Title/partName"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='p'] = 'O.T.'"/>
+    <x:expect label="$o from rdf:type = 'Arrangement'"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='o'] = 'arranged'"/>
+    <x:expect label="$r from musicKey"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='r'] = 'D major'"/>
+    <x:expect label="$s from version"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='s'] = 'Version the second'"/>
+    -->
+    <x:expect label="$0 from URI or identifiedBy"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='0'] = '(ID)0001'"/>
+    <x:expect label="$2 from source"
+              test="//marc:datafield[@tag='130']/marc:subfield[@code='2'] = 'IndexData'"/>
+  </x:scenario>
+
+</x:description>

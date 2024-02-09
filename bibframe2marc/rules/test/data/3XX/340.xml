@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/" xmlns:bflc="http://id.loc.gov/ontologies/bflc/" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+  <bf:Instance>
+    <bf:baseMaterial>
+      <bf:BaseMaterial>
+        <rdfs:label>plastic, metal</rdfs:label>
+        <bf:source>
+          <bf:Source>
+            <bf:code>rda</bf:code>
+          </bf:Source>
+        </bf:source>
+      </bf:BaseMaterial>
+    </bf:baseMaterial>
+    <bf:systemRequirement>
+      <bf:SystemRequirement>
+        <rdfs:label>Blu-ray disc; requires Blu-ray player.</rdfs:label>
+        <rdf:value rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">http://example.org/blu-ray</rdf:value>
+      </bf:SystemRequirement>
+    </bf:systemRequirement>
+    <bf:binding>
+        <bf:Binding rdf:about="http://id.loc.gov/vocabulary/rbmscv/cv00497">
+            <rdfs:label>Painted paper bindings (Binding)</rdfs:label>
+        </bf:Binding>
+    </bf:binding>
+    <bf:reductionRatio>
+        <bf:ReductionRatio>
+            <rdf:value>24:1</rdf:value>
+        </bf:ReductionRatio>
+    </bf:reductionRatio>
+    <bf:reductionRatio>
+        <bf:ReductionRatio>
+            <rdfs:label>high reduction</rdfs:label>
+        </bf:ReductionRatio>
+    </bf:reductionRatio>
+  </bf:Instance>
+</rdf:RDF>

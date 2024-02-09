@@ -1,0 +1,847 @@
+<?xml version='1.0'?>
+<rules xmlns="http://www.loc.gov/bf2marc"
+       xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+       xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+       xmlns:bf="http://id.loc.gov/ontologies/bibframe/"
+       xmlns:bflc="http://id.loc.gov/ontologies/bflc/"
+       xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#"
+       xmlns:marc="http://www.loc.gov/MARC21/slim"
+       xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+  <!-- I know, a 490 isn't a 5XX -->
+  <!-- 490/880 -->
+  <select xpath="bf:Instance/bf:seriesStatement">
+    <var name="v880Script">
+      <switch>
+        <case test="@xml:lang and not(contains(translate(@xml:lang,$upper,$lower),translate($pCatScript,$upper,$lower)))">
+          <lookup map="df880script" targetField="code">
+            <lookupField name="lang" xpath="translate(substring-after(@xml:lang,'-'),$upper,$lower)"/>
+          </lookup>
+        </case>
+      </switch>
+    </var>
+    <switch>
+      <case test="$v880Script != ''">
+        <df tag="880">
+          <ind1 default="0"/>
+          <ind2 default=" "/>
+          <sf code="6"><transform><xsl:value-of select="concat('490-00/',$v880Script)"/></transform></sf>
+          <sf code="a"><select xpath="."/></sf>
+        </df>
+      </case>
+      <case test="default">
+        <df tag="490">
+          <ind1 default="0"/>
+          <ind2 default=" "/>
+          <sf code="a"><select xpath="."/></sf>
+        </df>
+      </case>
+    </switch>
+  </select>
+
+  <!-- notes -->
+  <select xpath="bf:Instance/bf:note/bf:Note[rdfs:*[. != ''] or rdf:value[. != ''] or bf:*]|bf:Work/bf:note/bf:Note[rdfs:*[. != ''] or rdf:value[. != ''] or bf:*]|//bf:Item/bf:note/bf:Note[rdfs:*[. != ''] or rdf:value[. != ''] or bf:*]">
+    <switch>
+      <case test="local-name(../..)='Instance' and
+                  (rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/computer' or translate(bf:noteType,$upper,$lower)='computer file characteristics')">
+        <df tag="256" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='numbering' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/number')">
+        <df tag="362" lang-xpath="rdfs:label">
+          <ind1 default="1"/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false"><select xpath="rdfs:label"/></sf>
+        </df>
+      </case>
+
+      <case test="(local-name(../..)='Instance' or local-name(../..)='Item') and (translate(bf:noteType,$upper,$lower)='with' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/with')">
+        <df tag="501" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+          <sf code="5" repeatable="false">
+            <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='report type' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/report')">
+        <df tag="513" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='issuance information' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/issuance')">
+        <df tag="515" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='type of computer data' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/computer')">
+        <df tag="516" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='additional physical form' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/addphys')">
+        <df tag="530">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="3" chopPunct="true" repeatable="false">
+            <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+          </sf>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+          <sf code="d" repeatable="false">
+            <select xpath="bf:identifiedBy/*[local-name()='StockNumber' or rdf:type/@rdf:resource='http://id.loc.gov/ontologies/bibframe/StockNumber']/rdf:value"/>
+          </sf>
+          <sf code="u">
+            <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="(local-name(../..)='Instance' or local-name(../..)='Item') and (translate(bf:noteType,$upper,$lower)='reproduction version' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/repro')">
+        <df tag="533">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="3" chopPunct="true" repeatable="false">
+            <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+          </sf>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+          <sf code="5" chopPunct="true" repeatable="false">
+            <select xpath="bflc:applicableInstitution/*/*[local-name()='code']"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='original version' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/orig')">
+        <df tag="534">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="3" chopPunct="true">
+            <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+          </sf>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+          <sf code="x">
+            <select xpath="bf:identifiedBy/*[local-name()='Issn' or rdf:type/@rdf:resource='http://id.loc.gov/ontologies/bibframe/Issn']/rdf:value"/>
+          </sf>
+          <sf code="z">
+            <select xpath="bf:identifiedBy/*[local-name()='Isbn' or rdf:type/@rdf:resource='http://id.loc.gov/ontologies/bibframe/Isbn']/rdf:value"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='funding information' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/fundinfo')">
+        <df tag="536" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <select xpath="rdfs:label">
+            <switch>
+              <case test="starts-with(.,'Contract:')">
+                <sf code="b">
+                  <transform>
+                    <xsl:call-template name="tChopPunct">
+                      <xsl:with-param name="pString" select="substring-after(.,'Contract:')"/>
+                    </xsl:call-template>
+                  </transform>
+                </sf>
+              </case>
+              <case test="starts-with(.,'Grant:')">
+                <sf code="c">
+                  <transform>
+                    <xsl:call-template name="tChopPunct">
+                      <xsl:with-param name="pString" select="substring-after(.,'Grant:')"/>
+                    </xsl:call-template>
+                  </transform>
+                </sf>
+              </case>
+              <case test="starts-with(.,'Program element:')">
+                <sf code="e">
+                  <transform>
+                    <xsl:call-template name="tChopPunct">
+                      <xsl:with-param name="pString" select="substring-after(.,'Program element:')"/>
+                    </xsl:call-template>
+                  </transform>
+                </sf>
+              </case>
+              <case test="starts-with(.,'Project:')">
+                <sf code="f">
+                  <transform>
+                    <xsl:call-template name="tChopPunct">
+                      <xsl:with-param name="pString" select="substring-after(.,'Project:')"/>
+                    </xsl:call-template>
+                  </transform>
+                </sf>
+              </case>
+              <case test="starts-with(.,'Task:')">
+                <sf code="g">
+                  <transform>
+                    <xsl:call-template name="tChopPunct">
+                      <xsl:with-param name="pString" select="substring-after(.,'Task:')"/>
+                    </xsl:call-template>
+                  </transform>
+                </sf>
+              </case>
+              <case test="starts-with(.,'Work unit:')">
+                <sf code="h">
+                  <transform>
+                    <xsl:call-template name="tChopPunct">
+                      <xsl:with-param name="pString" select="substring-after(.,'Work unit:')"/>
+                    </xsl:call-template>
+                  </transform>
+                </sf>
+              </case>
+              <case test="default">
+                <sf code="a" chopPunct="true"><select xpath="."/></sf>
+              </case>
+            </switch>
+          </select>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and
+                  (translate(bf:noteType,$upper,$lower)='biographical data' or translate(bf:noteType,$upper,$lower)='administrative history' or
+                  rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/biogdata' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/adminhist')">
+        <df tag="545" lang-xpath="rdfs:label[not(@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI')]">
+          <ind1 default=" ">
+            <switch>
+              <case test="translate(bf:noteType,$upper,$lower)='biographical data' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/biogdata'">0</case>
+              <case test="translate(bf:noteType,$upper,$lower)='administrative history' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/adminhist'">1</case>
+            </switch>
+          </ind1>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label[not(@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI')]"/>
+          </sf>
+          <sf code="u">
+            <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='issuing body' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/issuing')">
+        <df tag="550" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and
+                  (translate(bf:noteType,$upper,$lower)='index' or translate(bf:noteType,$upper,$lower)='finding aid' or
+                  rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/index' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/finding')">
+        <df tag="555" lang-xpath="rdfs:label[not(@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI')]">
+          <ind1 default="8">
+            <switch>
+              <case test="translate(bf:noteType,$upper,$lower)='index' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/index'"><text> </text></case>
+              <case test="translate(bf:noteType,$upper,$lower)='finding aid' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/finding'">0</case>
+            </switch>
+          </ind1>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label[not(@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI')]"/>
+          </sf>
+          <sf code="u">
+            <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="local-name(../..)='Instance' and (translate(bf:noteType,$upper,$lower)='related material' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/related')">
+        <df tag="581" lang-xpath="rdfs:label">
+          <ind1 default="8"/>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+          <sf code="z">
+            <select xpath="bf:identifiedBy/*[local-name()='Isbn' or rdf:type/rdf:resource='http://id.loc.gov/ontologies/bibframe/Isbn']/rdf:value"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="(local-name(../..)='Instance' or local-name(../..)='Item') and (translate(bf:noteType,$upper,$lower)='exhibition' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/exhibit')">
+        <df tag="585" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="3" chopPunct="true" repeatable="false">
+            <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+          </sf>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+          <sf code="5" repeatable="false">
+            <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+          </sf>
+        </df>
+      </case>
+
+      <case test="(local-name(../..)='Instance' or local-name(../..)='Item') and (translate(bf:noteType,$upper,$lower)='description source' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/descsource')">
+        <df tag="588" lang-xpath="rdfs:label">
+          <ind1 default=" ">
+            <switch>
+              <case test="starts-with(rdfs:label,'Source of description:') or starts-with(rdfs:label,'Description based on:')">0</case>
+              <case test="starts-with(rdfs:label,'Latest issue consulted:')">1</case>
+            </switch>
+          </ind1>
+          <ind2 default=" "/>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label">
+              <switch>
+                <case test="starts-with(.,'Source of description:')">
+                  <transform><xsl:value-of select="normalize-space(substring-after(.,'Source of description:'))"/></transform>
+                </case>
+                <case test="starts-with(.,'Latest issue consulted:')">
+                  <transform><xsl:value-of select="normalize-space(substring-after(.,'Latest issue consulted:'))"/></transform>
+                </case>
+                <case test="default"><transform><xsl:value-of select="."/></transform></case>
+              </switch>
+            </select>
+          </sf>
+          <sf code="5" repeatable="false">
+            <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+          </sf>
+        </df>
+      </case>
+      
+      <!-- these notes are picked up in the rules for data field 300, do not process here -->
+      <case test="(local-name(../..)='Work' and 
+        (
+          translate(bf:noteType,$upper,$lower)='language' or 
+          rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/lang' or 
+          rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/award'
+        ))"/>
+
+      <!-- these notes are picked up in the rules for data field 300, do not process here -->
+      <case test="(local-name(../..)='Instance' or local-name(../..)='Item') and 
+                  (
+                  (translate(bf:noteType,$upper,$lower)='physical details' or translate(bf:noteType,$upper,$lower)='accompanying material' or translate(bf:noteType,$upper,$lower)='binding' or translate(bf:noteType,$upper,$lower)='action') or 
+                  (rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/physical' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/accmat' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/binding' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/action')
+                  )"/>
+
+      <case test="default">
+        <df tag="500" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="3" chopPunct="true" repeatable="false">
+            <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+          </sf>
+          <sf code="a" repeatable="false">
+            <transform>
+              <xsl:variable name="vNoteText">
+                <xsl:for-each select="rdfs:label">
+                  <xsl:choose>
+                    <xsl:when test="position() = last()">
+                      <xsl:value-of select="."/>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:value-of select="concat(.,' ')"/></xsl:otherwise>
+                  </xsl:choose>
+                </xsl:for-each>
+              </xsl:variable>
+              <xsl:call-template name="tChopPunct">
+                <xsl:with-param name="pString" select="$vNoteText"/>
+              </xsl:call-template>
+            </transform>
+          </sf>
+          <sf code="5" repeatable="false">
+            <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+          </sf>
+        </df>
+      </case>
+    </switch>
+  </select>
+
+  <df tag="502" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:dissertation/bf:Dissertation">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+      <sf code="b" chopPunct="true" repeatable="false">
+        <select xpath="bf:degree"/>
+      </sf>
+      <sf code="c" chopPunct="true" repeatable="false">
+        <select xpath="bf:grantingInstitution/*/rdfs:label"/>
+      </sf>
+      <sf code="d" chopPunct="true" repeatable="false">
+        <select xpath="bf:date"/>
+      </sf>
+      <sf code="g" chopPunct="true">
+        <select xpath="bf:note/*/rdfs:label"/>
+      </sf>
+      <sf code="o">
+        <select xpath="bf:identifiedBy/*/rdf:value"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="504" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:supplementaryContent/bf:SupplementaryContent[rdfs:label[. != ''] and not(@rdf:about)]  |
+                    bf:Instance/bf:supplementaryContent/bf:SupplementaryContent[rdfs:label[. != ''] and not(@rdf:about)]
+      ">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false"><select xpath="rdfs:label"/></sf>
+      <sf code="b" repeatable="false"><select xpath="bf:count"/></sf>
+    </context>
+  </df>
+
+  <df tag="505" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:tableOfContents/bf:TableOfContents[rdfs:label]">
+      <ind1 default="0"/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false"><select xpath="rdfs:label"/></sf>
+      <sf code="u"><select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/></sf>
+    </context>
+  </df>
+
+  <!-- 506/540 -->
+  <select xpath="bf:Instance/bf:usageAndAccessPolicy/* | //bf:Item/bf:usageAndAccessPolicy/*">
+    <switch>
+      <case test="local-name()='UsePolicy' or rdf:type/@rdf:resource='http://id.loc.gov/ontologies/bibframe/UsePolicy'">
+        <df tag="540" lang-xpath="rdfs:label[not(@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI')]">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="3" chopPunct="true" repeatable="false">
+            <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+          </sf>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label[not(@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI')]"/>
+          </sf>
+          <sf code="d" chopPunct="true" repeatable="false">
+            <select xpath="bf:note/bf:Note/rdfs:label"/>
+          </sf>
+          <sf code="u">
+            <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+          </sf>
+          <sf code="2" chopPunct="true" repeatable="false">
+            <select xpath="bf:source/bf:Source/bf:code"/>
+          </sf>
+          <sf code="5" repeatable="false">
+            <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+          </sf>
+        </df>
+      </case>
+      <case test="default">
+        <df tag="506" lang-xpath="rdfs:label">
+          <ind1 default=" "/>
+          <ind2 default=" "/>
+          <sf code="3" chopPunct="true" repeatable="false">
+            <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+          </sf>
+          <sf code="a" chopPunct="true" repeatable="false">
+            <select xpath="rdfs:label"/>
+          </sf>
+          <sf code="u">
+            <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+          </sf>
+          <sf code="2" chopPunct="true" repeatable="false">
+            <select xpath="bf:source/bf:Source/bf:code"/>
+          </sf>
+          <sf code="5" repeatable="false">
+            <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+          </sf>
+        </df>
+      </case>
+    </switch>
+  </select>
+
+  <df tag="508" lang-xpath=".">
+    <context xpath="bf:Instance/bf:credits[not(starts-with(text(),'Cast:'))]">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="."/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="510" lang-xpath="bf:title/*/bf:mainTitle">
+    <context xpath="bf:Work/bflc:indexedIn/bf:Work |
+                    bf:Work/bf:references/bf:Work">
+      <ind1 default="0">
+        <switch>
+          <case test="local-name(..)='indexedIn' and bf:note/bf:Note[translate(bf:noteType,$upper,$lower)='coverage' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/coverage']">2</case>
+          <case test="local-name(..)='references' and bf:note/bf:Note[translate(bf:noteType,$upper,$lower)='location' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/loc']">4</case>
+          <case test="local-name(..)='references'">3</case>
+        </switch>
+      </ind1>
+      <ind2 default=" "/>
+      <sf code="a" repeatable="false"><select xpath="bf:title/*/bf:mainTitle"/></sf>
+      <sf code="b" repeatable="false">
+        <select xpath="bf:note/bf:Note[translate(bf:noteType,$upper,$lower)='coverage' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/coverage']/rdfs:label"/>
+      </sf>
+      <sf code="c" repeatable="false">
+        <select xpath="bf:note/bf:Note[translate(bf:noteType,$upper,$lower)='location' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/loc']/rdfs:label"/>
+      </sf>
+      <sf code="x" repeatable="false">
+        <select xpath="bf:identifiedBy/*[local-name()='Issn' or rdf:type/@rdf:resource='http://id.loc.gov/ontologies/bibframe/Issn']/rdf:value"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="511" lang-xpath=".">
+    <context xpath="bf:Instance/bf:credits[starts-with(text(),'Cast:')]">
+      <ind1 default="1"/>
+      <ind2 default=" "/>
+      <sf code="a" repeatable="false">
+        <transform>
+          <xsl:call-template name="tChopPunct">
+            <xsl:with-param name="pString" select="substring-after(.,'Cast:')"/>
+          </xsl:call-template>
+        </transform>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="518" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:capture/bf:Capture[not(bf:date[@rdf:datatype='http://id.loc.gov/datatypes/edtf']) and not(bf:place/@rdf:resource)]">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="o" chopPunct="true">
+        <select xpath="bf:note/bf:Note/rdfs:label"/>
+      </sf>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+      <sf code="d" chopPunct="true">
+        <select xpath="bf:date"/>
+      </sf>
+      <sf code="p" chopPunct="true">
+        <select xpath="bf:place/*/rdfs:label"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="520" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:summary/bf:Summary[rdfs:label]">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+      <sf code="u">
+        <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+      </sf>
+    </context>
+  </df>
+
+  <!-- rules for 521 coded with 385 -->
+
+  <df tag="522" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:geographicCoverage/*[not(bf:source/@rdf:resource='http://id.loc.gov/authorities/classification/G' or bf:source/bf:Source/@rdf:about='http://id.loc.gov/authorities/classification/G') and rdfs:label]">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="524" lang-xpath=".">
+    <context xpath="bf:Instance/bf:preferredCitation">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true"><select xpath="."/></sf>
+    </context>
+  </df>
+
+  <df tag="532" lang-xpath=".">
+    <context xpath="bf:Instance/bf:contentAccessibility/bf:ContentAccessibility/rdfs:label">
+      <ind1 default="8"/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true"><select xpath="."/></sf>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="538" lang-xpath="rdfs:label">
+    <context xpath="bf:Instance/bf:systemRequirement/bf:SystemRequirement[not(contains(rdf:type/@rdf:resource,'bflc'))] |
+                    //bf:Item/bf:systemRequirement/bf:SystemRequirement[not(contains(rdf:type/@rdf:resource,'bflc'))]">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+      <sf code="u">
+        <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+      </sf>
+      <sf code="5">
+        <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="541" lang-xpath="rdfs:label">
+    <context xpath="//bf:Item/bf:immediateAcquisition/bf:ImmediateAcquisition[rdfs:label[. != '']]">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+      <sf code="5">
+        <select xpath="bflc:applicableInstitution/bf:Agent/bf:code"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="546" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:note/bf:Note[rdf:type/@rdf:resource = 'http://id.loc.gov/vocabulary/mnotetype/lang']">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="546" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:notation/bf:Notation">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="b" chopPunct="true">
+        <select xpath="rdfs:label"/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="561" lang-xpath=".">
+    <context xpath="bf:Instance/bf:custodialHistory|//bf:Item/bf:custodialHistory">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="."/>
+      </sf>
+      <switch>
+        <case test="local-name(parent::node()) = 'Item'">
+          <sf code="5" chopPunct="true" repeatable="false">
+            <transform><xsl:value-of select="$pConversionAgency" /></transform>
+          </sf>
+        </case>
+        <!--
+        <case test="bflc:applicableInstitution">
+          <var name="vAppOrg">
+            <switch>
+              <case test="bflc:applicableInstitution/@rdf:resource">
+                <transform>
+                  <xsl:call-template name="tUriCode">
+                    <xsl:with-param name="pUri" select="bflc:applicableInstitution/@rdf:resource"/>
+                  </xsl:call-template>
+                </transform>
+              </case>
+              <case test="bflc:applicableInstitution/*/@rdf:about">
+                <transform>
+                  <xsl:call-template name="tUriCode">
+                    <xsl:with-param name="pUri" select="bflc:applicableInstitution/*/@rdf:about"/>
+                  </xsl:call-template>
+                </transform>
+              </case>
+              <case test="bflc:applicableInstitution/*/*[local-name()='code']">
+                <transform><xsl:value-of select="bflc:applicableInstitution/*/*[local-name()='code']" /></transform>
+              </case>
+            </switch>
+          </var>
+          <sf code="5" chopPunct="true" repeatable="false">
+            <transform><xsl:value-of select="$vAppOrg" /></transform>
+          </sf>
+        </case>
+        -->
+      </switch>
+    </context>
+  </df>
+  
+  <df tag="563" lang-xpath="rdfs:label">
+    <context xpath="
+    //bf:Item/bf:note/*[bf:noteType='binding' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/binding'] |
+    bf:Instance/bf:note/*[bf:noteType='binding' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/binding'] ">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+      <switch>
+        <case test="local-name(parent::node()/..) = 'Item'">
+          <sf code="5" chopPunct="true" repeatable="false">
+            <transform><xsl:value-of select="$pConversionAgency" /></transform>
+          </sf>
+        </case>
+        <case test="bflc:applicableInstitution">
+          <var name="vAppOrg">
+            <switch>
+              <case test="bflc:applicableInstitution/@rdf:resource">
+                <transform>
+                  <xsl:call-template name="tUriCode">
+                    <xsl:with-param name="pUri" select="bflc:applicableInstitution/@rdf:resource"/>
+                  </xsl:call-template>
+                </transform>
+              </case>
+              <case test="bflc:applicableInstitution/*/@rdf:about">
+                <transform>
+                  <xsl:call-template name="tUriCode">
+                    <xsl:with-param name="pUri" select="bflc:applicableInstitution/*/@rdf:about"/>
+                  </xsl:call-template>
+                </transform>
+              </case>
+              <case test="bflc:applicableInstitution/*/*[local-name()='code']">
+                <transform><xsl:value-of select="bflc:applicableInstitution/*/*[local-name()='code']" /></transform>
+              </case>
+            </switch>
+          </var>
+          <sf code="5" chopPunct="true" repeatable="false">
+            <transform><xsl:value-of select="$vAppOrg" /></transform>
+          </sf>
+        </case>
+      </switch>
+  </context>
+  </df>
+  
+  <df tag="583" lang-xpath="rdfs:label">
+    <context xpath="
+      //bf:Item/bf:note/*[bf:noteType='action' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/action'] |
+      bf:Instance/bf:note/*[bf:noteType='action' or rdf:type/@rdf:resource='http://id.loc.gov/vocabulary/mnotetype/action'] ">
+      <ind1 default=" "/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="a" repeatable="false">
+        <transform>
+          <xsl:variable name="vLabel">
+            <xsl:for-each select="rdfs:label[not(@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI')]">
+              <xsl:value-of select="concat(.,' ')"/>
+            </xsl:for-each>
+          </xsl:variable>
+          <xsl:call-template name="tChopPunct">
+            <xsl:with-param name="pString" select="$vLabel"/>
+          </xsl:call-template>
+        </transform>
+      </sf>
+      <sf code="c" chopPunct="true">
+        <select xpath="bf:date"/>
+      </sf>
+      <sf code="k" chopPunct="true">
+        <select xpath="bf:agent/*/rdfs:label"/>
+      </sf>
+      <sf code="l" chopPunct="true">
+        <select xpath="bf:status/*/rdfs:label"/>
+      </sf>
+      <sf code="u">
+        <select xpath="bf:electronicLocator/@rdf:resource|rdf:value[@rdf:datatype='http://www.w3.org/2001/XMLSchema#anyURI']"/>
+      </sf>
+      <sf code="z" chopPunct="true">
+        <select xpath="bf:note/bf:Note/rdfs:label"/>
+      </sf>
+      <sf code="2" chopPunct="true" repeatable="false">
+        <select xpath="bf:source/bf:Source/bf:code"/>
+      </sf>
+      <switch>
+        <case test="local-name(parent::node()/..) = 'Item'">
+          <sf code="5" chopPunct="true" repeatable="false">
+            <transform><xsl:value-of select="$pConversionAgency" /></transform>
+          </sf>
+        </case>
+        <case test="bflc:applicableInstitution">
+          <var name="vAppOrg">
+            <switch>
+              <case test="bflc:applicableInstitution/@rdf:resource">
+                <transform>
+                  <xsl:call-template name="tUriCode">
+                    <xsl:with-param name="pUri" select="bflc:applicableInstitution/@rdf:resource"/>
+                  </xsl:call-template>
+                </transform>
+              </case>
+              <case test="bflc:applicableInstitution/*/@rdf:about">
+                <transform>
+                  <xsl:call-template name="tUriCode">
+                    <xsl:with-param name="pUri" select="bflc:applicableInstitution/*/@rdf:about"/>
+                  </xsl:call-template>
+                </transform>
+              </case>
+              <case test="bflc:applicableInstitution/*/*[local-name()='code']">
+                <transform><xsl:value-of select="bflc:applicableInstitution/*/*[local-name()='code']" /></transform>
+              </case>
+            </switch>
+          </var>
+          <sf code="5" chopPunct="true" repeatable="false">
+            <transform><xsl:value-of select="$vAppOrg" /></transform>
+          </sf>
+        </case>
+      </switch>
+    </context>
+    </df>
+  
+
+  <df tag="586" lang-xpath=".">
+    <context xpath="bf:Work/bf:awards">
+      <ind1 default="8"/>
+      <ind2 default=" "/>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="."/>
+      </sf>
+    </context>
+  </df>
+
+  <df tag="586" lang-xpath="rdfs:label">
+    <context xpath="bf:Work/bf:note/bf:Note[rdf:type/@rdf:resource = 'http://id.loc.gov/vocabulary/mnotetype/award']">
+      <ind1 default="8"/>
+      <ind2 default=" "/>
+      <sf code="3" chopPunct="true" repeatable="false">
+        <select xpath="bflc:appliesTo/bflc:AppliesTo/rdfs:label"/>
+      </sf>
+      <sf code="a" chopPunct="true" repeatable="false">
+        <select xpath="rdfs:label"/>
+      </sf>
+    </context>
+  </df>
+
+</rules>
