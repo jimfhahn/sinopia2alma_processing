@@ -19,4 +19,4 @@ RUN apt-get update && apt-get install -y xsltproc libxml2-utils libxslt1.1 libxm
 EXPOSE 8888
 
 # Run Jupyter notebook when the container launches
-CMD ["jupyter", "notebook", "--ip", "0.0.0.0", "--port", "8888", "--no-browser", "--allow-root"]
+CMD ["jupyter", "notebook", "--ip", "0.0.0.0", "--port", "8888"]
