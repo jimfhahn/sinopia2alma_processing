@@ -26,6 +26,13 @@
     </bf:creationDate>
   </xsl:template>
 
+<!-- Match bflc:PrimaryContribution and replace it with bf:PrimaryContribution -->
+<xsl:template match="bflc:PrimaryContribution">
+  <bf:PrimaryContribution>
+    <xsl:apply-templates select="@*|node()"/>
+  </bf:PrimaryContribution>
+</xsl:template>
+
 <!-- the following will make sure edtf does not have trailing slash if it is present  -->
 
 <xsl:template match="bf:date/@rdf:datatype" xmlns:bf="http://id.loc.gov/ontologies/bibframe/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">

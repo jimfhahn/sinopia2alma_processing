@@ -15,7 +15,7 @@
     </xsl:choose>
   </xsl:param>
   <xsl:param name="pSourceRecordId"/>
-  <xsl:param name="pConversionAgency" select=""/>
+  <xsl:param name="pConversionAgency" select="''"/>
   <xsl:param name="pGenerationUri" select="'https://github.com/lcnetdev/bibframe2marc'"/>
   <xsl:param name="pSRULookup"/>
   <xsl:variable name="lower">abcdefghijklmnopqrstuvwxyz</xsl:variable>

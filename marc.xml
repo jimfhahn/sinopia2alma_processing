@@ -1,98 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <marc:record xmlns:marc="http://www.loc.gov/MARC21/slim">
-  <marc:leader>     nam a22     uu 4500</marc:leader>
-  <marc:controlfield tag="001">idp140538472774831</marc:controlfield>
-  <marc:controlfield tag="003">DLC</marc:controlfield>
-  <marc:controlfield tag="008">231019|||||||||xx a          00| 0 chi  </marc:controlfield>
-  <marc:datafield tag="020" ind1=" " ind2=" ">
-    <marc:subfield code="a">9789881902580</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="020" ind1=" " ind2=" ">
-    <marc:subfield code="a">9881902584</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="035" ind1=" " ind2=" ">
-    <marc:subfield code="a">1127933250</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="040" ind1=" " ind2=" ">
-    <marc:subfield code="b">eng</marc:subfield>
-    <marc:subfield code="d">DLC</marc:subfield>
-    <marc:subfield code="e">rda</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="043" ind1=" " ind2=" ">
-    <marc:subfield code="0">http://id.loc.gov/authorities/names/n78089021</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="050" ind1=" " ind2="4">
-    <marc:subfield code="a">NK1071</marc:subfield>
-    <marc:subfield code="b">L58</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="245" xml:lang="cmn-Hant" ind1="0" ind2="0">
-    <marc:subfield code="a">藝流不息</marc:subfield>
-    <marc:subfield code="b">伊勢文化財團日本當代工藝</marc:subfield>
-    <marc:subfield code="c">編輯, 紀奕邦及林嘉琪</marc:subfield>
-    <marc:subfield code="c"/>
-  </marc:datafield>
-  <marc:datafield tag="246" xml:lang="eng" ind1="1" ind2="1">
-    <marc:subfield code="a">Living kogei</marc:subfield>
-    <marc:subfield code="b">contemporary Japanese craft from the Ise Collection</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="264" ind1=" " ind2="4">
-    <marc:subfield code="c">©2019</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="300" ind1=" " ind2=" ">
-    <marc:subfield code="a">99 pages</marc:subfield>
-    <marc:subfield code="c">28 cm</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="336" xml:lang="en" ind1=" " ind2=" ">
-    <marc:subfield code="a">text</marc:subfield>
-    <marc:subfield code="b">txt</marc:subfield>
-    <marc:subfield code="0">http://id.loc.gov/vocabulary/contentTypes/txt</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="337" xml:lang="en" ind1=" " ind2=" ">
-    <marc:subfield code="a">unmediated</marc:subfield>
-    <marc:subfield code="b">n</marc:subfield>
-    <marc:subfield code="0">http://id.loc.gov/vocabulary/mediaTypes/n</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="338" xml:lang="en" ind1=" " ind2=" ">
-    <marc:subfield code="a">volume</marc:subfield>
-    <marc:subfield code="b">nc</marc:subfield>
-    <marc:subfield code="0">http://id.loc.gov/vocabulary/carriers/nc</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="340" xml:lang="en" ind1=" " ind2=" ">
-    <marc:subfield code="g">color</marc:subfield>
-    <marc:subfield code="0">http://id.loc.gov/vocabulary/mcolor/mul</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="500" xml:lang="en" ind1=" " ind2=" ">
-    <marc:subfield code="a">Includes bibliographical references</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="522" xml:lang="en" ind1=" " ind2=" ">
-    <marc:subfield code="a">Japan</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="653" ind1=" " ind2=" ">
-    <marc:subfield code="a">Japón</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="653" ind1=" " ind2=" ">
-    <marc:subfield code="a">Artes decorativas</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="653" ind1=" " ind2=" ">
-    <marc:subfield code="a">Museos de arte</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="653" ind1=" " ind2=" ">
-    <marc:subfield code="a">Japan</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="653" ind1=" " ind2=" ">
-    <marc:subfield code="a">Art museums</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="653" ind1=" " ind2=" ">
-    <marc:subfield code="a">Decorative arts</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="655" xml:lang="en" ind1=" " ind2="4">
-    <marc:subfield code="a">Exhibition catalogs</marc:subfield>
-    <marc:subfield code="0">http://id.worldcat.org/fast/1424028</marc:subfield>
-  </marc:datafield>
-  <marc:datafield tag="884" ind1=" " ind2=" ">
-    <marc:subfield code="a">DLC bibframe2marc v1.1.0-SNAPSHOT</marc:subfield>
-    <marc:subfield code="g">20240209150047.0</marc:subfield>
-    <marc:subfield code="q">DLC</marc:subfield>
-    <marc:subfield code="u">https://github.com/lcnetdev/bibframe2marc</marc:subfield>
-  </marc:datafield>
+   <marc:leader xml:space="preserve">     nam a22      c 4500</marc:leader>
+   <marc:controlfield xml:space="preserve" tag="001">d0e1</marc:controlfield>
+   <marc:controlfield xml:space="preserve" tag="003"/>
+   <marc:controlfield xml:space="preserve" tag="007">t|</marc:controlfield>
+   <marc:controlfield xml:space="preserve" tag="008">230920s1993||||xx            00| 0|eng  </marc:controlfield>
+   <marc:datafield tag="010" xml:space="preserve" ind1=" " ind2=" "><marc:subfield code="a">   93013943 </marc:subfield></marc:datafield>
+   <marc:datafield tag="020" ind1=" " ind2=" ">
+      <marc:subfield code="a">9780813384566 </marc:subfield>
+      <marc:subfield code="q">acid-free paper</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="035" ind1=" " ind2=" ">
+      <marc:subfield code="a">28181746 </marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="035" ind1=" " ind2=" ">
+      <marc:subfield code="a">1000861687 </marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="040" ind1=" " ind2=" ">
+      <marc:subfield code="a">fmul</marc:subfield>
+      <marc:subfield code="b">eng</marc:subfield>
+      <marc:subfield code="e">rda</marc:subfield>
+      <marc:subfield code="c">fmul</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="050" ind1=" " ind2="4">
+      <marc:subfield code="a">KG495</marc:subfield>
+      <marc:subfield code="b"> .T7 1993</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="100" ind1="1" ind2=" ">
+      <marc:subfield code="a">Stotzky, Irwin P.</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/authorities/names/n82003964</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="245" ind1="1" ind2="0">
+      <marc:subfield code="a">Transition to democracy in Latin America</marc:subfield>
+      <marc:subfield code="b">the role of the judiciary</marc:subfield>
+      <marc:subfield code="c">Irwin P. Stotzky</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="264" ind1=" " ind2="1"/>
+   <marc:datafield tag="264" ind1=" " ind2="4">
+      <marc:subfield code="c">©1993</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="300" ind1=" " ind2=" ">
+      <marc:subfield code="a">xii, 401 pages</marc:subfield>
+      <marc:subfield code="c">23 cm</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="334" ind1=" " ind2=" ">
+      <marc:subfield code="a">single unit</marc:subfield>
+      <marc:subfield code="b">mono</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/vocabulary/issuance/mono</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="336" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">text</marc:subfield>
+      <marc:subfield code="b">txt</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/vocabulary/contentTypes/txt</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="337" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">unmediated</marc:subfield>
+      <marc:subfield code="b">n</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/vocabulary/mediaTypes/n</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="338" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">volume</marc:subfield>
+      <marc:subfield code="b">nc</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/vocabulary/carriers/nc</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="370" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="g">Colorado--Boulder</marc:subfield>
+      <marc:subfield code="0">http://id.worldcat.org/fast/1206092</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="500" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">Chapters "The difficulties of the transition process", "The tradition of constitutional adjudication" and "A democratic vision" contributed by Professor Irwin P. Stotzky, University of Miami School of Law.</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="500" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">Chapter "Constitutions, constitutionalism and constitution-mongering" contributed by Professor William Twining, University of Miami School of Law.</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="500" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">University of Miami School of Law Faculty Publication</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="500" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">Chapter "Designing the Institutional And Legal Structure of Prosecutorial Power in the Transition to Democracy" contributed by Professor Elizabeth M. Iglesias, University of Miami School of Law</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="500" xml:lang="en" ind1=" " ind2=" ">
+      <marc:subfield code="a">Chapter "The judicial process in context" contributed by Stephen J. Schnably, University of Miami School of Law.</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="505" ind1="0" ind2=" ">
+      <marc:subfield code="a">The difficulties of the transition process / Irwin P. Stotzky and Carlos S. Nino--Concerning the role the judiciary may serve in the proper functioning of a democracy / Marvin E. Frankel--The role of the judiciary in the transition to democracy / Jean-Bertrand Aristide--The function of judicial power during the transition / Raul Ricardo Alfonsin--The right degree of independence / Owen M. Fiss--Independence and responsibility in the judicial role / Paul W. Kahn--The judiciary and the political system in Chile: the dilemmas of judicial independence during the transition to democracy / Jorge Correa Sutil--Judicial power and three conceptions of impartiality / Roberto Gargarella--Is it better to be tried for a crime in a common law or civilian system? / George P. Fletcher--Persecution and inquisition: a case study / Ruti Teitel--The Latin Ameerican reformer's stake in U.S. human rights policy / Jonathan Miller--Some thoughts on institutional structures in the judicial process / Marcela Rodriguez--The judicial process in context / Stephen J. Schnab</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="505" ind1="0" ind2=" ">
+      <marc:subfield code="a">cont. The function of the prosecution in the transition to democracy in Latin America / Andres Jose D'Alessio--Should prosecutors be independent of the executive in prosecuting government abuses? / Philip B. Heymann--Human rights abuses in fledgling democracies: the role of discretion / Jaime Malamud-Goti--The role of the prosecutor in the transition to democracy in Latin America / Diane F. Orentlicher--Designing the institutional and legal structure of prosecutorial power in the transition to democracy / Elizabeth M. Iglesias.</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="505" ind1="0" ind2=" ">
+      <marc:subfield code="a">cont. Judicial independence and constitutional democracy: lessons from the U.S. experience / Robert A. Burt--The opinion-writing function of the judiciary of Latin American governments in transition to democracy : Martinez v. Provincia de Mendoza / Joseph Goldstein--On the exercise of judicial review in Argentina / Carlos S. Nino--The role of the judiciary in the review of human rights violations in Argentina / Eduardo Rabossi--The tradition of constitutional adjudication / Irwin P. Stotzky--The negative constitution: transition in Latin America / Cass R. Sunstein--Constitutions, constitutionalism and constitution-mongering / William Twining--A democratic vision / Irwin P. Stotzky.</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="650" xml:lang="en" ind1=" " ind2="0">
+      <marc:subfield code="a">Human rights</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/authorities/subjects/sh85026379</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="650" xml:lang="en" ind1=" " ind2="0">
+      <marc:subfield code="a">Judicial process</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/authorities/subjects/sh85070959</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="651" xml:lang="en" ind1=" " ind2="0">
+      <marc:subfield code="a">Latin America</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/authorities/subjects/sh85074879</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="650" xml:lang="en" ind1=" " ind2="0">
+      <marc:subfield code="a">Political questions and judicial power</marc:subfield>
+      <marc:subfield code="0">http://id.loc.gov/authorities/subjects/sh85104427</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="700" xml:lang="en" ind1="1" ind2=" ">
+      <marc:subfield code="a">Elizabeth M. Iglesias</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="700" xml:lang="en" ind1="1" ind2=" ">
+      <marc:subfield code="a">Stephen J. Schnably</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="700" xml:lang="en" ind1="1" ind2=" ">
+      <marc:subfield code="a">William Twining</marc:subfield>
+   </marc:datafield>
+   <marc:datafield tag="884" ind1=" " ind2=" ">
+      <marc:subfield code="a">DLC bibframe2marc v2.5.0 (Saxonica)</marc:subfield>
+      <marc:subfield code="g">20240212062302.0</marc:subfield>
+      <marc:subfield code="u">https://github.com/lcnetdev/bibframe2marc</marc:subfield>
+   </marc:datafield>
 </marc:record>
