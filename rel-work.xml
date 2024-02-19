@@ -1,0 +1,58 @@
+<rdf:RDF xmlns:bf="http://id.loc.gov/ontologies/bibframe/" xmlns:bflc="http://id.loc.gov/ontologies/bflc/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sinopia="http://sinopia.io/vocabulary/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <bf:Work rdf:about="https://api.stage.sinopia.io/resource/085754a9-082b-476e-84b3-137425e3226a">
+    <sinopia:hasResourceTemplate>pcc:bf2:Monograph:Work</sinopia:hasResourceTemplate>
+    <bf:title>
+      <bf:Title rdf:nodeID="f58e01cd9010f40b491dd7df88a95098bb1">
+        <bf:mainTitle xml:lang="en">Testing relations in Alma</bf:mainTitle>
+      </bf:Title>
+    </bf:title>
+    <bf:contribution>
+      <bf:PrimaryContribution rdf:nodeID="f58e01cd9010f40b491dd7df88a95098bb2">
+        <bf:agent rdf:resource="http://id.loc.gov/authorities/names/no90020704"/>
+      </bf:PrimaryContribution>
+    </bf:contribution>
+    <bf:contribution rdf:resource="http://id.loc.gov/ontologies/bibframe/PrimaryContribution"/>
+    <bf:contribution>
+      <bf:Agent rdf:about="http://id.loc.gov/authorities/names/no90020704">
+        <rdfs:label xml:lang="en">Doe, John, 1902-1959</rdfs:label>
+      </bf:Agent>
+    </bf:contribution>
+    <bf:originDate xml:lang="en">1948</bf:originDate>
+    <bf:language>
+      <bf:Language rdf:about="http://id.loc.gov/vocabulary/languages/heb">
+        <rdfs:label>Hebrew</rdfs:label>
+      </bf:Language>
+    </bf:language>
+    <bf:genreForm>
+      <rdf:Description rdf:about="http://id.loc.gov/authorities/genreForms/gf2014026333">
+        <rdfs:label xml:lang="en">Fantasy fiction</rdfs:label>
+      </rdf:Description>
+    </bf:genreForm>
+    <bf:content>
+      <bf:Content rdf:about="http://id.loc.gov/vocabulary/contentTypes/txt">
+        <rdfs:label xml:lang="en">text</rdfs:label>
+      </bf:Content>
+    </bf:content>
+    <bflc:relationship>
+      <bflc:Relationship rdf:nodeID="f58e01cd9010f40b491dd7df88a95098bb3">
+        <bf:relatedTo rdf:resource="https://api.stage.sinopia.io/resource/f9ff39a3-158c-4900-856d-49961897be92"/>
+        <bflc:relation rdf:resource="http://id.loc.gov/vocabulary/relationship/precededby"/>
+        <bf:note rdf:nodeID="f58e01cd9010f40b491dd7df88a95098bb4"/>
+        <bf:note rdf:resource="http://id.loc.gov/ontologies/bibframe/Note"/>
+        <bf:note xml:lang="en">just testing how this will look in RDF/XML</bf:note>
+        <bf:note xml:lang="en">free text note type</bf:note>
+      </bflc:Relationship>
+    </bflc:relationship>
+    <bf:adminMetadata>
+      <bf:AdminMetadata rdf:nodeID="f58e01cd9010f40b491dd7df88a95098bb5">
+        <bflc:catalogerId>Adina</bflc:catalogerId>
+        <bf:creationDate>2024-02-07</bf:creationDate>
+        <bf:assigner rdf:resource="http://id.loc.gov/vocabulary/organizations/iljeel"/>
+        <bflc:encodingLevel rdf:resource="http://id.loc.gov/vocabulary/menclvl/f"/>
+        <bf:descriptionConventions rdf:resource="http://id.loc.gov/vocabulary/descriptionConventions/rda"/>
+        <bf:descriptionLanguage rdf:resource="https://id.loc.gov/vocabulary/languages/eng"/>
+      </bf:AdminMetadata>
+    </bf:adminMetadata>
+    <bf:hasInstance rdf:resource="https://api.stage.sinopia.io/resource/c3905dd8-e349-49b4-9ad3-55baeae178eb"/>
+  </bf:Work>
+</rdf:RDF>
