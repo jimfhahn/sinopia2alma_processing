@@ -1,6 +1,7 @@
 from rdflib import Graph, Namespace, URIRef
 from rdflib.namespace import RDF
 from name_space.alma_ns import alma_namespaces
+from marc_xml import instance_xml_modifier
 
 
 def lc_bfxml_instance(uri):
@@ -28,6 +29,9 @@ def lc_bfxml_instance(uri):
     # write the instance graph to a file
     with open(filename, "wb") as file:
         file.write(instance_xml)
+
+    # run the instance graph through the instance_xml_modifier
+    instance_xml_modifier.modify_xml(filename, filename)
 
 
 def remove_rdf_header():
