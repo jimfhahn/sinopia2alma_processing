@@ -2,17 +2,20 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:bf="http://id.loc.gov/ontologies/bibframe/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <xsl:output method="xml" indent="yes"/>
 
-  <!-- Template to handle hasInstance elements -->
-  <xsl:template match="*[local-name()='hasInstance']">
-    <bf:hasInstance rdf:resource="{@rdf:resource}" />
-  </xsl:template>
-
   <!-- Template to handle bf:Work elements -->
   <xsl:template match="bf:Work">
     <xsl:element name="bf:Work">
       <xsl:attribute name="rdf:about">
         <xsl:value-of select="@rdf:about"/>
       </xsl:attribute>
+      <xsl:apply-templates select="node()"/>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- Template to handle bf:date elements and add rdf:datatype attribute -->
+  <xsl:template match="bf:date">
+    <xsl:element name="bf:date">
+      <xsl:attribute name="rdf:datatype">http://id.loc.gov/datatypes/edtf</xsl:attribute>
       <xsl:apply-templates select="node()"/>
     </xsl:element>
   </xsl:template>
